@@ -1,0 +1,123 @@
+first create a project file in java 
+
+second create three package: in.sc.beans->Student.java, in.sc.java->Main.java, in.sc.resources->SpringConfig.java
+
+thats three of package is create inside of src folder
+
+third jar folder . import fileName - commans-logging, spring-core, spring-beans, spring-context, spring-expression, spring-aop
+
+file structure : spring-core-javaconfig(project_name)
+				->javaconfigjar
+				->src->in.sc.beans
+						->Student.java
+					 ->in.sc.java
+					    ->Main.java
+					 ->in.sc.resources
+					   ->SpringConfig.java
+					   
+import filepath:-> import org.springframework.context.annotation.Bean;
+                -> import org.springframework.context.annotation.Configuration;	
+                -> import in.sc.resources.SpringConfig;
+				-> import org.springframework.context.ApplicationContext;
+				-> import org.springframework.context.annotation.AnnotationConfigApplicationContext;				   
+
+Student.java
+
+package in.sc.beans;
+
+public class Student {
+	
+	private String name;
+	private int age;
+	private String email;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public void display() {
+		System.out.println("Name: "+name);
+		System.out.println("Age: "+age);
+		System.out.println("Email: "+email);
+	}
+
+}
+
+SpringConfig.java
+
+package in.sc.resources;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import in.sc.beans.Student;
+
+@Configuration
+public class SpringConfig {
+
+	@Bean
+	public Student std1() {
+		
+		Student std = new Student();
+		std.setName("Dharmendra Patel");
+		std.setAge(24);
+		std.setEmail("dharmendra@gmail.com");
+		return std;
+	}
+	
+	@Bean
+	public Student std2() {
+		
+		Student std = new Student();
+		std.setName("ankit Patel");
+		std.setAge(23);
+		std.setEmail("ankit@gmail.com");
+		return std;
+	}
+}
+
+
+Main.java
+
+package in.sc.java;
+
+import in.sc.beans.Student;
+import in.sc.resources.SpringConfig;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+		
+//		Student student = context.getBean(Student.class);
+//		student.display();
+		
+		Student obj1 = (Student) context.getBean("std1");
+		obj1.display();
+		
+		System.out.println("==============================");
+		Student obj2 = (Student) context.getBean("std2");
+		obj2.display();
+	}
+
+}
+					      		
+																	
